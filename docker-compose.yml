@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: kabiru
+      POSTGRES_PASSWORD: kabiru_dev
+      POSTGRES_DB: kabiru_dms
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kabiru -d kabiru_dms"]
+      interval: 5s
+      retries: 10
+volumes:
+  pgdata:
